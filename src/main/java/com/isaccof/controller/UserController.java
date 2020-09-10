@@ -4,6 +4,7 @@ import com.isaccof.customer.model.User;
 import com.isaccof.mapper.UserMapper;
 import com.isaccof.repository.UserEntity;
 import com.isaccof.repository.UsersRepository;
+import com.isaccof.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,40 +18,40 @@ import java.util.Optional;
 
 @RestController
 public class UserController {
-
-    @Autowired
-    UsersRepository usersRepository;
+@Autowired
+ private UserService userService;
+    /*@Autowired
+    UsersRepository usersRepository;*/
     @PostMapping("/save")
     public ResponseEntity<User> createUser(@RequestBody User user){
 
         UserEntity userEntity= UserMapper.INSTANCE.mapTo(user);
 
-        UserEntity  saveUser=usersRepository.save(userEntity);
+        UserEntity  saveUser=userService.createUser(userEntity);
 
         URI location= ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(saveUser.getUserId()).toUri();
         return ResponseEntity.created(location).build();
 
     }
    @GetMapping("/users")
-    public ResponseEntity<List<User>>retrieveAllUsers(){
+    public ResponseEntity<List<User>>findAllUsers(){
 
-
-      List<UserEntity> userEntity=usersRepository.findAll();
+      List<UserEntity> userEntity=userService.retrieveAllUsers();
       List<User> users=UserMapper.INSTANCE.mapTO(userEntity);
 
       return ResponseEntity.ok(users);
 
-    }
-    @GetMapping(value = "users/{id}")
+  }
+   @GetMapping(value = "users/{id}")
     public ResponseEntity<User> getUserById(@PathVariable("id") long id, Model model){
 
-        UserEntity userEntity=usersRepository.getOne(id);
+        UserEntity userEntity=userService.getUserById(id);
         User user=UserMapper.INSTANCE.mapTO(userEntity);
         return ResponseEntity.accepted().body(user);
 
     }
 
-    @DeleteMapping(value = "users/{id}")
+   /* @DeleteMapping(value = "users/{id}")
     public ResponseEntity<Void> deletetUserById(@PathVariable("id") long id){
 
        usersRepository.deleteById(id);
@@ -58,9 +59,9 @@ public class UserController {
         return new ResponseEntity<Void>(HttpStatus.OK);
 
 
-    }
+    }*/
 
-    @PutMapping(value="users/{id}")
+   /* @PutMapping(value="users/{id}")
     public ResponseEntity<User> updateUsers(@RequestBody User user, @PathVariable long id) {
 
         Optional<UserEntity> userOptional = usersRepository.findById(id);
@@ -75,6 +76,6 @@ public class UserController {
         usersRepository.save(userEntity);
 
         return ResponseEntity.noContent().build();
-    }
+    }*/
 
 }
