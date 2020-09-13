@@ -42,7 +42,7 @@ public class UserController {
       return ResponseEntity.ok(users);
 
   }
-   @GetMapping(value = "users/{id}")
+    @GetMapping(value = "users/{id}")
     public ResponseEntity<User> getUserById(@PathVariable("id") long id, Model model){
 
         UserEntity userEntity=userService.getUserById(id);
@@ -51,31 +51,22 @@ public class UserController {
 
     }
 
-   /* @DeleteMapping(value = "users/{id}")
-    public ResponseEntity<Void> deletetUserById(@PathVariable("id") long id){
-
-       usersRepository.deleteById(id);
-
-        return new ResponseEntity<Void>(HttpStatus.OK);
 
 
-    }*/
+    @DeleteMapping("/{id}")
+    public ResponseEntity delete(@PathVariable Long id) {
+        userService.deleteById(id);
 
-   /* @PutMapping(value="users/{id}")
-    public ResponseEntity<User> updateUsers(@RequestBody User user, @PathVariable long id) {
+        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+    }
 
-        Optional<UserEntity> userOptional = usersRepository.findById(id);
+    @PutMapping("/{id}")
+    public ResponseEntity<User> update(@PathVariable Long id, @RequestBody User user) {
+        UserEntity userEntity = UserMapper.INSTANCE.mapTo(user);
+        userEntity.setUserId(id);
+        userService.createUser(userEntity);
 
-        if (!userOptional.isPresent())
-            return ResponseEntity.notFound().build();
-
-        user.setId(id);
-
-        UserEntity userEntity=UserMapper.INSTANCE.mapTo(user);
-
-        usersRepository.save(userEntity);
-
-        return ResponseEntity.noContent().build();
-    }*/
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(user);
+    }
 
 }

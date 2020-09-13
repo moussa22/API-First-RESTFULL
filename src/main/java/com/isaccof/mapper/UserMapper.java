@@ -9,6 +9,7 @@ import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
+import java.util.Optional;
 
 @Mapper
 public interface UserMapper {
@@ -23,6 +24,8 @@ public interface UserMapper {
     @InheritInverseConfiguration
     User mapTO(UserEntity userEntity);
     List<User> mapTO(List<UserEntity> userEntity);
+
+    User mapTO(Optional<UserEntity> userEntity);
 }
 
 

@@ -1,13 +1,12 @@
 package com.isaccof.service;
 
-import com.isaccof.customer.model.User;
-import com.isaccof.mapper.UserMapper;
 import com.isaccof.repository.UserEntity;
 import com.isaccof.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -15,8 +14,13 @@ public class UserService {
     private UsersRepository repository;
 
     public UserEntity createUser(UserEntity userEntity){
-       // UserEntity userEntity=UserMapper.INSTANCE.mapTo(user);
          return repository.save(userEntity);
+
+
+    }
+
+    public UserEntity updateUser(UserEntity userEntity){
+        return repository.save(userEntity);
 
 
     }
@@ -31,16 +35,22 @@ public class UserService {
 
     public UserEntity getUserById(Long id){
 
-       return repository.getOne(id);
+        return repository.getOne(id);
 
     }
 
-
+/*
     public void deleteUserById(UserEntity userEntity) {
         repository.delete(userEntity);
 
 
+    }*/
+
+    public void deleteById(Long id) {
+        repository.deleteById(id);
     }
+
+
 }
 
 
