@@ -49,7 +49,7 @@ class DemoOpenApiSwaggerUiCodegenApplicationTests {
 
 	}
 
-/*
+
 @Test
 	public void getUserByIdTest(){
 
@@ -58,13 +58,13 @@ class DemoOpenApiSwaggerUiCodegenApplicationTests {
 		userEntity.setUserName("toto");
 		userEntity.setUserEmail("t@yahoo.fr");
 
-		Mockito.when (usersRepository.findById (anyLong())).thenReturn(java.util.Optional.of(userEntity));
+		Mockito.when (usersRepository.getOne(anyLong())).thenReturn(userEntity);
 
-		Optional<UserEntity> userEntity1=userService.getUserById(2L);
+		UserEntity userEntity1=userService.getUserById(2L);
 		assertNotNull(userEntity1);
 
 	}
-*/
+
 @Test
 	public void deletetUserByIdTest(){
 
@@ -75,7 +75,7 @@ class DemoOpenApiSwaggerUiCodegenApplicationTests {
 		UserEntity userEntity=UserMapper.INSTANCE.mapTo(user1);
 	    userService.deleteById(userEntity.getUserId());
 
-		verify(usersRepository, times(1)).delete(userEntity);
+		verify(usersRepository, times(1)).deleteById(userEntity.getUserId());
 	}
 	@Test
  public void updateUserTest(){
@@ -87,6 +87,8 @@ class DemoOpenApiSwaggerUiCodegenApplicationTests {
 		user1.setEmail("t@yahoo.fr");
 	UserEntity userEntity= UserMapper.INSTANCE.mapTo(user1);
 	when(usersRepository.save(userEntity)).thenReturn(userEntity);
+
+	assertNotNull(userEntity);
 
 
 }
