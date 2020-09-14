@@ -52,7 +52,7 @@ public class SaveUserStepDefinition extends AbstractSpringConfiguration {
         }
     }
 
-    @Then("^the response contains user name \"([^\"]*)\"$")
+    /*@Then("^the response contains user name \"([^\"]*)\"$")
     public void the_response_contains_user_name(String name) throws Throwable {
         if (response != null && response.getStatusCode().is2xxSuccessful()) {
             String responseBody = response.getBody();
@@ -61,7 +61,7 @@ public class SaveUserStepDefinition extends AbstractSpringConfiguration {
             System.out.println(responseMap);
             assertEquals(name, responseMap.get("name"));
         }
-    }
+    }*/
 
 
 }
