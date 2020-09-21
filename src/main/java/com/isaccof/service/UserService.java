@@ -39,12 +39,12 @@ public class UserService {
 
     }
 
-/*
-    public void deleteUserById(UserEntity userEntity) {
-        repository.delete(userEntity);
+    public UserEntity getUserByName(String userName){
 
+        return repository.findByUserName(userName);
 
-    }*/
+    }
+
 
     public void deleteById(Long id) {
         repository.deleteById(id);

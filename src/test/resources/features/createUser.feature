@@ -4,4 +4,8 @@ Feature: To save the users with users details
     Given the user with user id 7L and user name "barath" and user email "t@yahoo.fr"
     When the client calls "/save" with the given details
     Then the client receives status code of 201
-    And the response contains user name "barath"
+
+  Scenario:  GET /users
+    When the client calls "/users"
+    Then the response  status code is 200
+    Then the user must be  not null

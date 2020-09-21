@@ -20,8 +20,7 @@ import java.util.Optional;
 public class UserController {
 @Autowired
  private UserService userService;
-    /*@Autowired
-    UsersRepository usersRepository;*/
+
     @PostMapping("/save")
     public ResponseEntity<User> createUser(@RequestBody User user){
 
@@ -51,7 +50,14 @@ public class UserController {
 
     }
 
+    @GetMapping(value = "users/byName")
+    public ResponseEntity<User> getUserById(@PathVariable("name") String userName, Model model){
 
+        UserEntity userEntity=userService.getUserByName(userName);
+        User user=UserMapper.INSTANCE.mapTO(userEntity);
+        return ResponseEntity.accepted().body(user);
+
+    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity delete(@PathVariable Long id) {

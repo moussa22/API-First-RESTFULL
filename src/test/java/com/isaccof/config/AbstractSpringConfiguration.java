@@ -74,4 +74,10 @@ public abstract class AbstractSpringConfiguration {
         return buildUrl(host, port, path, uriVariables, null);
     }
 
+
+    public String buildUrl(String host, String port, String path,Long id) {
+
+        return buildUrl(host, port, path, null, null);
+    }
+
 }
