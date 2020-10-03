@@ -9,9 +9,11 @@ import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.junit.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
@@ -23,7 +25,7 @@ import static org.junit.Assert.assertNotNull;
 
 
 public class getUserByIdStepDefinition extends AbstractSpringConfiguration {
-  /*  private static final Logger logger = LoggerFactory.getLogger(SaveUserStepDefinition.class);
+    private static final Logger logger = LoggerFactory.getLogger(SaveUserStepDefinition.class);
     private Long id;
     private String name = null;
     private String email = null;
@@ -31,8 +33,8 @@ public class getUserByIdStepDefinition extends AbstractSpringConfiguration {
     private ResponseEntity<String> response = null;
     HttpEntity<?> requestEntity;
 
-    @Given("^the user with user id (\\d+)L and user name \"([^\"]*)\" and user email \"([^\"]*)\"$")
-    public void the_user_with_user_id_L_and_user_name_and_user_email(Long id, String name, String email) throws Throwable {
+    @Given("^user informations id (\\d+)L and user name \"([^\"]*)\" and user email \"([^\"]*)\"$")
+    public void user_informations_id_L_and_user_name_and_user_email(Long id, String name, String email) throws Throwable {
         if (logger.isInfoEnabled()) {
             logger.info("Users to be saved with user id {} and user name {} and user email {}", id, name,email);
         }
@@ -53,11 +55,12 @@ public class getUserByIdStepDefinition extends AbstractSpringConfiguration {
         UserEntity userEntity=UserMapper.INSTANCE.mapTo(newUser);
         requestEntity = new HttpEntity<>(userEntity, getDefaultHttpHeaders());
 
+
         response = invokeRESTCall(url, HttpMethod.POST, requestEntity);
-       // UserEntity userEntity1=restTemplate.postForObject(url,requestEntity,UserEntity.class);
+        UserEntity userEntity1=restTemplate.postForObject(url,requestEntity,UserEntity.class);
         assertNotNull(response);
 
-        *//*UserEntity userEntity=new UserEntity();
+        //UserEntity userEntity=new UserEntity();
         userEntity.setUserId(id);
         userEntity.setUserName(name);
         userEntity.setUserEmail(email);
@@ -65,32 +68,71 @@ public class getUserByIdStepDefinition extends AbstractSpringConfiguration {
         User user=UserMapper.INSTANCE.mapTO(userEntity);
 
         User user1=restTemplate.postForObject(url,user,User.class);
-     *//*   *//*Map<String, Object> requestMap = new HashMap<>();
+       Map<String, Object> requestMap = new HashMap<>();
         requestMap.put("name", this.name);
         requestMap.put("id", this.id);
         requestMap.put("email", this.email);
         requestEntity = new HttpEntity<>(requestMap, getDefaultHttpHeaders());
-        response = invokeRESTCall(url, HttpMethod.POST, requestEntity);*//*
+        response = invokeRESTCall(url, HttpMethod.POST, requestEntity);
+
+        assertNotNull(response);
 
     }
 
     @When("^the client calls GET \"([^\"]*)\"$")
     public void the_client_calls_GET(String path) throws Throwable {
 
+        /*Map<String, String> uriVariables = new HashMap<>();
+        uriVariables.put("userId", String.valueOf(id));*/
+        Map<String, String> uriVariables = new HashMap<>();
+        uriVariables.put("userId", String.valueOf(id));
+        String url = buildUrl(HOST, PORT, path, uriVariables);
+        /*Map<String, Object> requestMap = new HashMap<>();
+        requestMap.put("name", this.name);
+        requestMap.put("id", this.id);
+        requestMap.put("email", this.email);*/
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("X-COM-PERSIST", "true");
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("id", "1");
+        UserEntity userEntity = new UserEntity(100l, "Adam",  "test@email.com");
 
-        String url = buildUrl(HOST, PORT, path);
+        HttpEntity<UserEntity> request = new HttpEntity<>(userEntity, headers);
+
+       // UserEntity result = restTemplate.getForObject(url, UserEntity.class,params);
+        //Verify request succeed
+        //Assert.assertNotNull(result);
+        /*HttpEntity<?> requestEntity = new HttpEntity<>(requestMap, getDefaultHttpHeaders());
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        restTemplate = new RestTemplate ();
+        response = restTemplate.getForEntity(url,requestEntity,);
         logger.info("url {}", url);
-       response = invokeRESTCall(url, HttpMethod.GET,requestEntity);
-      //  response = restTemplate.getForEntity(url,String.class);
+
+        response = invokeRESTCall(url, HttpMethod.GET, requestEntity);*/
+
     }
 
-    *//*@When("^the client calls GET \"([^\"]*)\"$")
+    /*@When("^the client calls GET \"([^\"]*)\"$")
     public void the_client_calls_GET(String path) throws Throwable {
         String url = buildUrl(HOST, PORT, path);
 
         logger.info("url {}", url);
         response = invokeRESTCall(url, HttpMethod.GET,null);
-    }*//*
+    }
 
     @Then("^the client receives status code of (\\d+)$")
     public void the_client_receives_status_code_of(int arg1) throws Throwable {
