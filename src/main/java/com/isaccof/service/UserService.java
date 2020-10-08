@@ -10,6 +10,8 @@ import java.util.Optional;
 
 @Service
 public class UserService {
+
+    private static  List<UserEntity> userEntityList;
     @Autowired
     private UsersRepository repository;
 
@@ -27,7 +29,7 @@ public class UserService {
 
    public List<UserEntity>retrieveAllUsers(){
 
-        List<UserEntity> userEntityList=repository.findAll();
+         userEntityList=repository.findAll();
 
         return userEntityList;
 
@@ -45,13 +47,23 @@ public class UserService {
 
     }
 
+    public boolean isUserExist(UserEntity userEntity) {
+        return repository.findByUserName(userEntity.getUserName())!=null;
+    }
+
 
     public void deleteById(Long id) {
         repository.deleteById(id);
     }
 
+    public void deleteAllUsers() {
+
+        userEntityList.clear();
+    }
+
 
 }
+
 
 
 
