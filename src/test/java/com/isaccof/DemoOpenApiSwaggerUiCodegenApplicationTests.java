@@ -24,7 +24,7 @@ import java.util.stream.Stream;
 @SpringBootTest
 class DemoOpenApiSwaggerUiCodegenApplicationTests {
 
-	@Autowired
+/*	@Autowired
 	UserService userService;
 	@MockBean
 	UsersRepository usersRepository;
@@ -105,6 +105,6 @@ class DemoOpenApiSwaggerUiCodegenApplicationTests {
 	assertNotNull(userEntity);
 
 
-}
+}*/
 
 }

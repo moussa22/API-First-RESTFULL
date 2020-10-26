@@ -17,7 +17,7 @@ public class CucumberConfig {
     public TestRestTemplate testRestTemplate;
 
     @LocalServerPort
-    public static final String PORT = "8082";
+    public static final String PORT = "8084";
 
     public String staticURL = "http://localhost:";
 

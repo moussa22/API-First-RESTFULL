@@ -27,9 +27,9 @@ public abstract class AbstractSpringConfiguration {
 
     @Autowired(required = false)
     private TestRestTemplate restTemplate;
-    protected ObjectMapper mapper = new ObjectMapper();
+   // protected ObjectMapper mapper = new ObjectMapper();
     protected static final String HOST = "localhost";
-    protected static final String PORT = "8082";
+    protected static final String PORT = "8084";
 
     public TestRestTemplate getRestTemplate() {
 

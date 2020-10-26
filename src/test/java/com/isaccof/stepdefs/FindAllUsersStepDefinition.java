@@ -26,7 +26,7 @@ public class FindAllUsersStepDefinition extends AbstractSpringConfiguration {
     private ResponseEntity<String> response = null;
 
 
-    @When("^the client calls \"([^\"]*)\"$")
+    /*@When("^the client calls \"([^\"]*)\"$")
     public void the_client_calls(String path) throws Throwable {
         String url = buildUrl(HOST, PORT, path);
 
@@ -35,14 +35,14 @@ public class FindAllUsersStepDefinition extends AbstractSpringConfiguration {
         response = restTemplate.getForEntity(url,String.class);
 
 
-    }
+    }*/
 
-    @Then("^the client have success and receives status code of (\\d+)$")
+  /*  @Then("^the client have success and receives status code of (\\d+)$")
     public void the_client_have_success_and_receives_status_code_of(int arg1) throws Throwable {
         if (response != null && response.getStatusCode().is2xxSuccessful()) {
             assertEquals(200, response.getStatusCode().value());
         }
-    }
+    }*/
 
 
 
