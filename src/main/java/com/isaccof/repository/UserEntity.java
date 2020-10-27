@@ -24,7 +24,7 @@ public class UserEntity {
     private RoleEntity roleEntity;
 
 
-    @Override
+   /* @Override
     public String toString() {
         return "UserEntity{" +
                 "userName='" + userName + '\'' +
@@ -33,5 +33,5 @@ public class UserEntity {
                 ", enabled=" + enabled +
                 ", userEmail='" + userEmail + '\'' +
                 '}';
-    }
+    }*/
 }

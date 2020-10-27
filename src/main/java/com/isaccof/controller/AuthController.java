@@ -21,14 +21,14 @@ public class AuthController {
     public String registerUser(@RequestBody @Valid RegistrationRequest registrationRequest) {
         UserEntity u = new UserEntity();
         u.setPassword(registrationRequest.getPassword());
-        u.setUserName(registrationRequest.getUsername());
+        u.setUserName(registrationRequest.getUserName());
         userService.createUser(u);
         return "OK";
     }
 
     @PostMapping("/auth")
     public AuthResponse auth(@RequestBody AuthRequest request) {
-        UserEntity userEntity = userService.findByLoginAndPassword(request.getUsername(), request.getPassword());
+        UserEntity userEntity = userService.findByLoginAndPassword(request.getUserName(), request.getPassword());
         String token = jwtProvider.generateToken(userEntity.getUserName());
         return new AuthResponse(token);
     }

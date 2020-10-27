@@ -32,9 +32,7 @@ public class ApplicationUser implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        SimpleGrantedAuthority authority=new SimpleGrantedAuthority(userEntity.getRole());
-
-        return Arrays.asList(authority);
+        return grantedAuthorities;
     }
 
     @Override

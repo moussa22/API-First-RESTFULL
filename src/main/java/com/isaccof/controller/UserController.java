@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -36,6 +37,7 @@ public class UserController {
     private JwtProvider jwtProvider;
 
     @PostMapping("/save")
+   // @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_ADMINTRAINEE')")
     public ResponseEntity<User> createUser(@RequestBody User user) {
 
         logger.info("Create user: { }", user);
@@ -136,15 +138,15 @@ public class UserController {
         return new ResponseEntity<User>(HttpStatus.NO_CONTENT);
 
     }
-/*
-    @PostMapping("/auth")
+
+  /*  @PostMapping("/auth")
     public AuthResponse auth(@RequestBody AuthRequest request) {
         UserEntity userEntity = userService.findByLoginAndPassword(request.getUsername(), request.getPassword());
         String token = jwtProvider.generateToken(userEntity.getUserName());
         return new AuthResponse(token);
-    }
+    }*/
 
-    @PostMapping("/register")
+   /* @PostMapping("/register")
     public String registerUser(@RequestBody @Valid RegistrationRequest registrationRequest) {
         UserEntity u = new UserEntity();
         u.setPassword(registrationRequest.getPassword());
